@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import appActions from "../store/actions";
-import { Box, Button } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,22 +48,8 @@ export default function StationAccidentsList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const URL = `http://localhost:5000/accident/node`;
-    dispatch({
-      type: appActions.SET_SELECTED_STATION_ACCIDENTS,
-      payload: [
-        {
-          id: 1,
-          localization: {
-            longitude: 1,
-            latitude: 2,
-          },
-          date: 2222,
-          timestamp: 24214.21412,
-          severity: "fatal",
-        },
-      ],
-    });
+    const URL = `${process.env.REACT_APP_BACKEND_SERVER}/accident/node`;
+
     fetch(URL, {
       method: "POST",
       headers: {

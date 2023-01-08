@@ -6,10 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AccindentsStatistics from "./AccindentsStatistics";
 import AddAccident from "./addAccident/AddAccident";
-import AccidentCard from "./AccidentCard";
 import StationAccidentsList from "./StationAccidentsList";
-import AddPerson from "./addPerson/AddPerson";
-import { useSelect } from "@mui/base";
 import { useDispatch, useSelector } from "react-redux";
 import appActions from "../store/actions";
 import { Divider } from "@mui/material";
@@ -82,10 +79,9 @@ export default function RightSection(props) {
       <TabPanel value={rightSectionTab} index={2}>
         <Box sx={{ display: "flex", gap: 2, alignItems: "center", m: 3 }}>
           <Typography sx={{ fontWeight: "bold" }}>
-            Localisation : <br />{" "}
+            Localization : <br />{" "}
           </Typography>
           <Typography sx={{ fontSize: 12, fontWeight: "bold" }}>
-            {" "}
             longitude :
           </Typography>
           <Typography sx={{ fontSize: 12, fontWeight: "bold", color: "red" }}>
@@ -93,7 +89,6 @@ export default function RightSection(props) {
           </Typography>
           <br />
           <Typography sx={{ fontSize: 12, fontWeight: "bold" }}>
-            {" "}
             latitude :{" "}
           </Typography>
           <Typography sx={{ fontSize: 12, fontWeight: "bold", color: "red" }}>

@@ -1,10 +1,9 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Box, Button, Container, Paper, Stack } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import dateFormat from "dateformat";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import appActions from "../store/actions";
 
 function AccidentDatePicker() {

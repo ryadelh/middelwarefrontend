@@ -1,19 +1,18 @@
-import {
-  Box,
-  Button,
-  Container,
-  InputLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import appActions from "../../store/actions";
 import AccidentSeverity from "./AccidentSeverity";
 import AccidentVehicules from "./AccidentVehicules";
 import AccidentCasualities from "./AccidentCasualities";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const AddAccident = () => {
+  const [succes, setSuccess] = useState(false);
   const accidentDetails = useSelector(
     (state) => state.AppState.accidentDetails
   );
@@ -25,10 +24,11 @@ const AddAccident = () => {
   );
 
   const dispatch = useDispatch();
-  const URL = `${process.env.REACT_APP_SERVER}/accident`;
+  const accidentId = selectedAccident.id;
+  const URL = `${process.env.REACT_APP_BACKEND_SERVER}/accident/${accidentDetails}`;
   const handleSubmitAccidentDetails = () => {
     fetch(URL, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -39,7 +39,7 @@ const AddAccident = () => {
         return response.json();
       })
       .then((resData) => {
-        console.log(resData);
+        setSuccess(true);
         dispatch({
           type: appActions.SET_ACCIDENT_DETAILS,
           payload: resData,
@@ -117,8 +117,40 @@ const AddAccident = () => {
       >
         Submit
       </Button>
+      <SuccessDialog succes={succes} />
     </Box>
   );
 };
 
 export default AddAccident;
+
+function SuccessDialog({ succes }) {
+  const [open, setOpen] = useState(succes);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle color="green" id="alert-dialog-title">
+          Succes !
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Accident infos was added succefully
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>ok</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}

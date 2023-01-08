@@ -21,7 +21,7 @@ function AccidentVehicules(props) {
   };
 
   useEffect(() => {
-    const URL = `http://localhost:5000/car`;
+    const URL = `${process.env.REACT_APP_BACKEND_SERVER}/car`;
     fetch(URL)
       .then((response) => {
         console.log(response);

@@ -21,7 +21,7 @@ function AccidentCasualities(props) {
   };
 
   useEffect(() => {
-    const URL = `http://localhost:5000/people`;
+    const URL = `${process.env.REACT_APP_BACKEND_SERVER}/people`;
     fetch(URL)
       .then((response) => {
         console.log(response);
@@ -29,9 +29,8 @@ function AccidentCasualities(props) {
       })
       .then((resData) => {
         console.log(resData);
-        // setSystemPeople(resData.people);
-      })
-      .catch((er) => setSystemPeople([{ id: 12 }, { id: 3 }]));
+        setSystemPeople(resData);
+      });
   }, []);
 
   return systemPeople ? (

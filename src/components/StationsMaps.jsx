@@ -7,7 +7,7 @@ import stationMarkers from "../data/markers";
 import { useEffect } from "react";
 
 const StationsMaps = () => {
-  const URL = `${process.env.REACT_APP_BACKEND_SERVER}/statistics`;
+  const URL = `${process.env.REACT_APP_BACKEND_SERVER}/accident/node/date`;
 
   const stations = useSelector((state) => state.AppState.stations);
   const selectedDate = useSelector((state) => state.AppState.selectedDate);
@@ -28,12 +28,14 @@ const StationsMaps = () => {
     dispatch({ payload: marker, type: appActions.SET_SELECTED_STATION });
 
     const data = {
-      station: selectedStation,
-      date: selectedDate,
+      latitude: selectedStation.latitude,
+      longitude: selectedStation.longitude,
+      startDate: selectedDate.start,
+      endDate: selectedDate.end,
     };
 
     fetch(URL, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
@@ -56,7 +58,7 @@ const StationsMaps = () => {
       initialViewState={{
         latitude: 33.9692139,
         longitude: -6.8922822,
-        zoom: 12,
+        zoom: 13,
       }}
       mapLib={maplibregl}
       // mapStyle= 'https://demotiles.maplibre.org/style.json'
